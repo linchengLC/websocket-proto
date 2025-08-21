@@ -606,10 +606,12 @@ message UnsubscribeAlphaAccountsRequest {}
 message AlphaAccount {
   string token_uuid = 1;
   string token_symbol = 2;
-  string contract_address = 3;
-  string balance = 4;
-  string locked_balance = 5;
-  string avg_cost_price = 6;
+  string chain_uuid = 3;
+  string chain_name = 4;
+  string contract_address = 5;
+  string balance = 6;
+  string locked_balance = 7;
+  string avg_cost_price = 8;
 }
 
 message AlphaAccountsSnapshot {
