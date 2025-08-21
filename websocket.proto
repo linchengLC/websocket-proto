@@ -491,24 +491,19 @@ message SpotCostPriceUpdate {
   SpotCostPrice spot_cost_price = 1;
 }
 
-message AlphaToken {
-  string token_uuid = 1;
-  string contract_address = 2;
-}
-
 message SubscribeAlphaTokenCandlesRequest {
-  AlphaToken token = 1;
+  string token_uuid = 1;
   Candle.Period period = 2;
   int64 limit = 3;
 }
 
 message UnsubscribeAlphaTokenCandlesRequest {
-  AlphaToken token = 1;
+  string token_uuid = 1;
   Candle.Period period = 2;
 }
 
 message AlphaTokenCandle {
-  AlphaToken token = 1;
+  string token_uuid = 1;
   google.protobuf.Timestamp time = 2;
   string open = 3;
   string high = 4;
@@ -527,15 +522,15 @@ message AlphaTokenCandleUpdate {
 }
 
 message SubscribeAlphaTokensTickerRequest {
-  repeated AlphaToken tokens = 1; // list of AlphaToken, empty means subscribing all tokens
+  repeated string token_uuids = 1; // list of AlphaToken, empty means subscribing all tokens
 }
 
 message UnsubscribeAlphaTokensTickerRequest {
-  repeated AlphaToken tokens = 1; // list of AlphaToken, empty means unsubscribing all tokens
+  repeated string token_uuids = 1; // list of AlphaToken, empty means unsubscribing all tokens
 }
 
 message AlphaTokenTicker {
-  AlphaToken token = 1;
+  string token_uuid = 1;
   string open = 2;
   string high = 3;
   string low = 4;
@@ -554,11 +549,11 @@ message AlphaTokenTickerUpdate {
 }
 
 message SubscribeAlphaOrdersRequest {
-  AlphaToken token = 1;
+  string token_uuid = 1;
 }
 
 message UnsubscribeAlphaOrdersRequest {
-  AlphaToken token = 1;
+  string token_uuid = 1;
 }
 
 message AlphaOrder {
