@@ -41,6 +41,14 @@ message Request {
     UnsubscribeAllViewerOrdersRequest unsubscribe_all_viewer_orders_request = 127;
     SubscribeSpotCostPriceRequest subscribe_spot_cost_price_request = 128;
     UnSubscribeSpotCostPriceRequest unsubscribe_spot_cost_price_request = 129;
+    SubscribeAlphaTokenCandlesRequest subscribe_alpha_token_candles_request = 130;
+    UnsubscribeAlphaTokenCandlesRequest unsubscribe_alpha_token_candles_request = 131;
+    SubscribeAlphaTokensTickerRequest subscribe_alpha_tokens_ticker_request = 132;
+    UnsubscribeAlphaTokensTickerRequest unsubscribe_alpha_tokens_ticker_request = 133;
+    SubscribeAlphaOrdersRequest subscribe_alpha_orders_request = 134;
+    UnsubscribeAlphaOrdersRequest unsubscribe_alpha_orders_request = 135;
+    SubscribeAlphaAccountsRequest subscribe_alpha_accounts_request = 136;
+    UnsubscribeAlphaAccountsRequest unsubscribe_alpha_accounts_request = 137;
   }
 }
 
@@ -72,6 +80,14 @@ message Response {
     ExchangeRatesListUpdate exchange_rates_list_update = 119;
     SpotCostPriceSnapshot spot_cost_price_snapshot = 120;
     SpotCostPriceUpdate spot_cost_price_update = 121;
+    AlphaTokenCandlesSnapshot alpha_token_candles_snapshot = 122;
+    AlphaTokenCandleUpdate alpha_token_candle_update = 123;
+    AlphaTokensTickerSnapshot alpha_tokens_ticker_snapshot = 124;
+    AlphaTokenTickerUpdate alpha_token_ticker_update = 125;
+    AlphaOrderSnapshot alpha_order_snapshot = 126;
+    AlphaOrderUpdate alpha_order_update = 127;
+    AlphaAccountsSnapshot alpha_accounts_snapshot = 128;
+    AlphaAccountUpdate alpha_account_update = 129;
   }
 }
 
@@ -473,4 +489,133 @@ message SpotCostPriceSnapshot {
 
 message SpotCostPriceUpdate {
   SpotCostPrice spot_cost_price = 1;
+}
+
+message AlphaToken {
+  string token_uuid = 1;
+  string contract_address = 2;
+}
+
+message SubscribeAlphaTokenCandlesRequest {
+  AlphaToken token = 1;
+  Candle.Period period = 2;
+  int64 limit = 3;
+}
+
+message UnsubscribeAlphaTokenCandlesRequest {
+  AlphaToken token = 1;
+  Candle.Period period = 2;
+}
+
+message AlphaTokenCandle {
+  AlphaToken token = 1;
+  google.protobuf.Timestamp time = 2;
+  string open = 3;
+  string high = 4;
+  string low = 5;
+  string close = 6;
+  string volume = 7;
+  Candle.Period period = 8;
+}
+
+message AlphaTokenCandlesSnapshot {
+  repeated AlphaTokenCandle candles = 1;
+}
+
+message AlphaTokenCandleUpdate {
+  AlphaTokenCandle candle = 1;
+}
+
+message SubscribeAlphaTokensTickerRequest {
+  repeated AlphaToken tokens = 1; // list of AlphaToken, empty means subscribing all tokens
+}
+
+message UnsubscribeAlphaTokensTickerRequest {
+  repeated AlphaToken tokens = 1; // list of AlphaToken, empty means unsubscribing all tokens
+}
+
+message AlphaTokenTicker {
+  AlphaToken token = 1;
+  string open = 2;
+  string high = 3;
+  string low = 4;
+  string close = 5;
+  string volume = 6;
+  string dailyChange = 7;
+  string dailyChangePerc = 8;
+}
+
+message AlphaTokensTickerSnapshot {
+  repeated AlphaTokenTicker tickers = 1;
+}
+
+message AlphaTokenTickerUpdate {
+  AlphaTokenTicker ticker = 1;
+}
+
+message SubscribeAlphaOrdersRequest {
+  AlphaToken token = 1;
+}
+
+message UnsubscribeAlphaOrdersRequest {
+  AlphaToken token = 1;
+}
+
+message AlphaOrder {
+  enum Side {
+    BUY = 0;
+    SELL = 1;
+  }
+  enum Status{
+    PENDING = 0;
+    FILLED = 1;
+    FAILED = 2;
+  }
+  string id = 1;
+  Side side = 2;
+  string from_token = 3;
+  string from_amount = 4;
+  string from_icon_url = 5;
+  string from_chain_icon_url = 6;
+  string to_token = 7;
+  string to_amount = 8;
+  string to_icon_url = 9;
+  string to_chain_icon_url = 10;
+  string actual_to_amount = 11;
+  Status status = 12;
+  string min_received_amount = 13;
+  string avg_price = 14;
+  string network_fee = 15;
+  string trading_fee = 16;
+  google.protobuf.Timestamp created_at = 17;
+  google.protobuf.Timestamp updated_at = 18;
+}
+
+message AlphaOrderSnapshot {
+  repeated AlphaOrder orders = 1;
+}
+
+message AlphaOrderUpdate {
+  AlphaOrder order = 1;
+}
+
+message SubscribeAlphaAccountsRequest {}
+
+message UnsubscribeAlphaAccountsRequest {}
+
+message AlphaAccount {
+  string token_uuid = 1;
+  string token_symbol = 2;
+  string contract_address = 3;
+  string balance = 4;
+  string locked_balance = 5;
+  string avg_cost_price = 6;
+}
+
+message AlphaAccountsSnapshot {
+  repeated AlphaAccount accounts = 1;
+}
+
+message AlphaAccountUpdate {
+  AlphaAccount account = 1;
 }
