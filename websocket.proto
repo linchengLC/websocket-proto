@@ -566,7 +566,7 @@ message AlphaOrder {
     FILLED = 1;
     FAILED = 2;
   }
-  string id = 1;
+  uint64 id = 1;
   Side side = 2;
   string from_token = 3;
   string from_amount = 4;
