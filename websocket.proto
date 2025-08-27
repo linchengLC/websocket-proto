@@ -49,6 +49,8 @@ message Request {
     UnsubscribeAlphaOrdersRequest unsubscribe_alpha_orders_request = 135;
     SubscribeAlphaAccountsRequest subscribe_alpha_accounts_request = 136;
     UnsubscribeAlphaAccountsRequest unsubscribe_alpha_accounts_request = 137;
+    SubscribeAlphaTokenStatRequest subscribe_alpha_token_stat_request = 138;
+    UnsubscribeAlphaTokenStatRequest unsubscribe_alpha_token_stat_request = 139;
   }
 }
 
@@ -88,6 +90,8 @@ message Response {
     AlphaOrderUpdate alpha_order_update = 127;
     AlphaAccountsSnapshot alpha_accounts_snapshot = 128;
     AlphaAccountUpdate alpha_account_update = 129;
+    AlphaTokenStatSnapshot alpha_token_stat_snapshot = 130;
+    AlphaTokenStatUpdate alpha_token_stat_update = 131;
   }
 }
 
